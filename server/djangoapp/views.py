@@ -40,10 +40,12 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
+
 def logout_request(request):
     logout(request)
     data = {"userName": ""}
     return JsonResponse(data)
+
 
 def registration(request):
     data = json.loads(request.body)
@@ -68,14 +70,16 @@ def registration(request):
 
     return JsonResponse({"userName": username, "status": "Authenticated"})
 
-#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+
+
 def get_dealerships(request, state="All"):
-    if(state == "All"):
+    if (state == "All"):
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
+        endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
-    return JsonResponse({"status":200,"dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 def get_dealer_details(request, dealer_id):
@@ -98,6 +102,7 @@ def get_dealer_reviews(request, dealer_id):
 # def add_review(request):
 # ...
 
+
 def get_cars(request):
     count = CarMake.objects.filter().count()
     if count == 0:
@@ -113,6 +118,7 @@ def get_cars(request):
         })
 
     return JsonResponse({"CarModels": cars})
+
 
 def post_review(request):
     if request.method == "POST":
